@@ -20,7 +20,7 @@ object BookApp extends ZIOAppDefault {
           port = 8090,
           apiPath = "/api/graphql",
           graphiqlPath = Some("/graphiql"),
-          webSocketPath = Some("/ws/graphql")
+          webSocketPath = Some("/ws/graphql"),
         )
       }
       .provide(BookApi.live, BookRepository.live)
