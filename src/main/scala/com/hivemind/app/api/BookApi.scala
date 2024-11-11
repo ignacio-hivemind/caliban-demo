@@ -18,16 +18,16 @@ class BookApi(bookRepo: BookRepository) {
   private case class Mutations(addBook: Book => UIO[Book])
 
   // Instances of Queries and Mutations
-  private val queries = Queries(getBooks = bookRepo.getBooks)
+  private val queries   = Queries(getBooks = bookRepo.getBooks)
   private val mutations = Mutations(addBook = bookRepo.addBook)
 
   // Build the GraphQL API
   val api: GraphQL[Any] =
     graphQL(RootResolver(queries, mutations)) @@
-      maxFields(300) @@ // query analyzer that limit query fields
-      maxDepth(30) @@ // query analyzer that limit query depth
+      maxFields(300) @@     // query analyzer that limit query fields
+      maxDepth(30) @@       // query analyzer that limit query depth
       timeout(3 seconds) @@ // wrapper that fails slow queries
-      printErrors // wrapper that logs errors
+      printErrors           // wrapper that logs errors
 }
 
 object BookApi {
